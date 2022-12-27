@@ -1,8 +1,10 @@
 import React from 'react';
 import useCart from '../../hooks/useCart';
 import useProducts from '../../hooks/useProducts';
+import { removeFromDb } from '../../utilities/fakedb';
 import Cart from '../Cart/Cart';
 import ReviewItem from '../ReviewItem/ReviewItem';
+import {Link} from 'react-router-dom' ;
 
 const Orders = () => {
     const [products,setProducts] = useProducts(); // from order for useProduct
@@ -10,7 +12,8 @@ const Orders = () => {
     // console.log(Cart)
     const handleRemoveProduct = product =>{// to remove Item from review
         const rest = cart.filter(pd => pd.id !== product.id)
-        setCart(rest)
+        setCart(rest) 
+        removeFromDb(product.id); // remove from db / localStorage
     }
     return (
         <div className ='shop-container'>
@@ -26,7 +29,7 @@ const Orders = () => {
             <div className='cart-container'>{/*cart={cart} v5 theke*/}
                 <Cart cart={cart}>
 
-
+                   <Link to={'/inventory'}><button>Proceed Checkout</button></Link>
                 </Cart>
 
             </div>
