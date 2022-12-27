@@ -1,14 +1,31 @@
 import React from 'react';
 import useCart from '../../hooks/useCart';
 import useProducts from '../../hooks/useProducts';
+import Cart from '../Cart/Cart';
+import ReviewItem from '../ReviewItem/ReviewItem';
 
 const Orders = () => {
     const [products,setProducts] = useProducts(); // from order for useProduct
-    const [Cart,setCart] = useCart(products); // from order for useCart with 'products'
+    const [cart,setCart] = useCart(products); // from order for useCart with 'products'
+    // console.log(Cart)
     return (
-        <div>
-            <h1>order for Products, total prods : {products.length}</h1>
-            <p>Lorem total Cart : {Cart.length} ipsum dolor sit, amet consectetur adipisicing elit. Earum lique. Veniam corrupti ipsum aspernatur officia, magni quibusdam ut consequatur.</p>
+        <div className ='shop-container'>
+            <div className='products-container'>
+                 {
+                    cart.map(product => <ReviewItem
+                      key={product.id}
+                      product ={product}
+                    ></ReviewItem>)
+                 }
+            </div>
+            <div className='cart-container'>{/*cart={cart} v5 theke*/}
+                <Cart cart={cart}>
+
+
+                </Cart>
+
+            </div>
+
         </div>
     );
 };
